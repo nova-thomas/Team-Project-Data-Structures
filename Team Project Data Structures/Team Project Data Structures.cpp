@@ -21,6 +21,7 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -34,11 +35,34 @@ int main()
 	// Variables
 	int n, m; // n number of threads, m number of jobs
 	vector<long> times; // Using m as the index to match the job to the vector list of times
-	
+	string inputFileName;
 
-	// Taking in input from a file
+	// Prompt for input file name
+
+	// File input
+	ifstream inputFile(inputFileName);
+
+	// Checking if opened properly
+	if (!inputFile.is_open()) {
+		cerr << "Error opening the file." << endl;
+		return 1;
+	}
+
+	// Read n and m from file
+	inputFile >> n >> m;
+
+	// Resizing the vector list accoring to input file
+	times.resize(m);
+
+	// Reading m time numbers from file and stores in vector
+	for (int i = 0; i < m; i++) {
+		inputFile >> times[i];
+	}
 
 	// Creating threads and feeding the input to the threads
 
 	// Output of threads <---- maybe in thread function or nested in the creation of threads part?
+
+	// Closing file
+	inputFile.close();
 }
