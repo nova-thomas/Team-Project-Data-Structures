@@ -26,7 +26,7 @@
 using namespace std;
 
 // Function called in the creation of a thread object to handle the job given by the input in main
-void threadFunction() {
+void threadFunction(long jobTime) {
 
 }
 
@@ -38,6 +38,8 @@ int main()
 	string inputFileName;
 
 	// Prompt for input file name
+	cout << "Enter the name of the file: ";
+	cin >> inputFileName;
 
 	// File input
 	ifstream inputFile(inputFileName);
