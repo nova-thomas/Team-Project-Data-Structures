@@ -31,7 +31,7 @@ void threadFunction() {
 int main()
 {
 	// Variables
-	long n, m; // n number of threads, m number of jobs
+	int n, m; // n number of threads, m number of jobs
 	vector<long> times; // Using m as the index to match the job to the vector list of times
 	
 
