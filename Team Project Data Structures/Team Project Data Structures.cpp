@@ -8,6 +8,7 @@
 * 
 * Date Due: 11/20/2023
 * 
+* Simulation of a Linux Scheduler using Priority Queues
 * Description:
 * You are in possession of a program that's been parallelized and employs 𝑛 individual threads to tackle a given list of m jobs or tasks. 
 * Threads operate on these tasks in the sequence they appear in the input. Whenever a thread becomes available, it promptly picks up the next job from the list. 
