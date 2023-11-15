@@ -19,6 +19,7 @@
 
 #include <iostream>
 #include <thread>
+#include <vector>
 
 using namespace std;
 
@@ -30,6 +31,9 @@ void threadFunction() {
 int main()
 {
 	// Variables
+	long n, m;
+	vector<long> times; // Using m as the index to match the job to the vector list of times
+	
 
 	// Taking in input from a file
 
