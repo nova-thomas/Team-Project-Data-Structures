@@ -64,6 +64,12 @@ int main()
     // Read n and m from file
     inputFile >> n >> m;
 
+    // Check if the reading was successful
+    if (inputFile.fail()) {
+        cerr << "Error reading values from the file." << endl;
+        return 1;
+    }
+
     // Resizing the vector list according to input file
     times.resize(m);
 
