@@ -19,12 +19,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Downloads\input1">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\..\..\Downloads\input2">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
 </Project>

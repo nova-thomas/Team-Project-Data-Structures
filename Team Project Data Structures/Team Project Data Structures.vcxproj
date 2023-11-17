@@ -129,10 +129,6 @@
   <ItemGroup>
     <ClCompile Include="Team Project Data Structures.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Downloads\input1" />
-    <None Include="..\..\..\..\Downloads\input2" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
