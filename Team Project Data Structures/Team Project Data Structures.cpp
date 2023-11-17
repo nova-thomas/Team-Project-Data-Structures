@@ -21,16 +21,27 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <algorithm>
 #include <fstream>
 
 using namespace std;
 
 // Function called in the creation of a thread object to handle the job given by the input in main
-void threadFunction(long jobTime) {
+vector<pair<int, int>> parallelizeJobs(int n, int m, const vector<int>& processingTime) {
+	
+    vector<int> threadTime(n, 0); // initialize starting times for each thread
+    vector<pair<int, int>> jobSchedule;
 
+    for (int i = 0; i < m; ++i) {
+        int currentJobTime = processingTime[i];
+        auto minThreadIndex = min_element(threadTime.begin(), threadTime.end()) - threadTime.begin();
+        jobSchedule.push_back(make_pair(minThreadIndex, threadTime[minThreadIndex])); // record job schedule
+        threadTime[minThreadIndex] += currentJobTime;
+    }
+    return jobSchedule;
 }
 
-int main()
+int main() 
 {
 	// Variables
 	int n, m; // n number of threads, m number of jobs
