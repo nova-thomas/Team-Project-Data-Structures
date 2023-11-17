@@ -43,39 +43,45 @@ vector<pair<int, int>> parallelizeJobs(int n, int m, const vector<int>& processi
 
 int main() 
 {
-	// Variables
-	int n, m; // n number of threads, m number of jobs
-	vector<long> times; // Using m as the index to match the job to the vector list of times
-	string inputFileName;
+    // Variables
+    int n, m; // n number of threads, m number of jobs
+    vector<int> times; // Using m as the index to match the job to the vector list of times
+    string inputFileName;
 
-	// Prompt for input file name
-	cout << "Enter the name of the file: ";
-	cin >> inputFileName;
+    // Prompt for input file name
+    cout << "Enter the name of the file: ";
+    cin >> inputFileName;
 
-	// File input
-	ifstream inputFile(inputFileName);
+    // File input
+    ifstream inputFile(inputFileName);
 
-	// Checking if opened properly
-	if (!inputFile.is_open()) {
-		cerr << "Error opening the file." << endl;
-		return 1;
-	}
+    // Checking if opened properly
+    if (!inputFile.is_open()) {
+        cerr << "Error opening the file." << endl;
+        return 1;
+    }
 
-	// Read n and m from file
-	inputFile >> n >> m;
+    // Read n and m from file
+    inputFile >> n >> m;
 
-	// Resizing the vector list accoring to input file
-	times.resize(m);
+    // Resizing the vector list according to input file
+    times.resize(m);
 
-	// Reading m time numbers from file and stores in vector
-	for (int i = 0; i < m; i++) {
-		inputFile >> times[i];
-	}
+    // Reading m time numbers from file and stores in vector
+    for (int i = 0; i < m; i++) {
+        inputFile >> times[i];
+    }
 
-	// Creating threads and feeding the input to the threads
+    // Creating threads and feeding the input to the threads
+    auto outputSchedule = parallelizeJobs(n, m, times);
 
-	// Output of threads <---- maybe in thread function or nested in the creation of threads part?
+    // Output of threads
+    for (const auto& job : outputSchedule) {
+        cout << job.first << " " << job.second << endl;
+    }
 
-	// Closing file
-	inputFile.close();
+    // Closing file
+    inputFile.close();
+
+    return 0;
 }
