@@ -19,24 +19,32 @@
 */
 
 #include <iostream>
-#include <thread>
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <queue>
 
 using namespace std;
 
 // Function called in the creation of a thread object to handle the job given by the input in main
 vector<pair<int, long>> parallelizeJobs(int n, int m, const vector<long>& processingTime) {
-	
-    vector<long> threadTime(n, 0); // initialize starting times for each thread
+    // Priority queue to store thread times
+    priority_queue<pair<long, int>, vector<pair<long, int>>, greater<pair<long, int>>> threadTime;
+
     vector<pair<int, long>> jobSchedule;
+
+    for (int i = 0; i < n; ++i) {
+        threadTime.push({ 0, i }); // initialize starting times for each thread
+    }
 
     for (int i = 0; i < m; ++i) {
         long currentJobTime = processingTime[i];
-        auto minThreadIndex = min_element(threadTime.begin(), threadTime.end()) - threadTime.begin();
-        jobSchedule.push_back(make_pair(minThreadIndex, max(threadTime[minThreadIndex], 0L)));; // record job schedule ----------------------- SOMETHING ABOUT THIS LINE OR THE LINE BEFORE HAS FLAWED LOGIC THAT WILL RESULT IN NEGATIVE TIME OUTPUTS
-        threadTime[minThreadIndex] += currentJobTime;
+        auto minThread = threadTime.top();
+        threadTime.pop();
+
+        jobSchedule.push_back({ minThread.second, max(minThread.first, 0L) });
+        minThread.first += currentJobTime;
+        threadTime.push(minThread);
     }
     return jobSchedule;
 }
@@ -85,9 +93,6 @@ int main()
     for (const auto& job : outputSchedule) {
         cout << job.first << " " << job.second << endl;
     }
-
-    // Closing file
-    inputFile.close();
 
     return 0;
 }
