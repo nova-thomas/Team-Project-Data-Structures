@@ -27,15 +27,15 @@
 using namespace std;
 
 // Function called in the creation of a thread object to handle the job given by the input in main
-vector<pair<int, int>> parallelizeJobs(int n, int m, const vector<int>& processingTime) {
+vector<pair<int, long>> parallelizeJobs(int n, int m, const vector<long>& processingTime) {
 	
-    vector<int> threadTime(n, 0); // initialize starting times for each thread
-    vector<pair<int, int>> jobSchedule;
+    vector<long> threadTime(n, 0); // initialize starting times for each thread
+    vector<pair<int, long>> jobSchedule;
 
     for (int i = 0; i < m; ++i) {
-        int currentJobTime = processingTime[i];
+        long currentJobTime = processingTime[i];
         auto minThreadIndex = min_element(threadTime.begin(), threadTime.end()) - threadTime.begin();
-        jobSchedule.push_back(make_pair(minThreadIndex, threadTime[minThreadIndex])); // record job schedule
+        jobSchedule.push_back(make_pair(minThreadIndex, max(threadTime[minThreadIndex], 0L)));; // record job schedule ----------------------- SOMETHING ABOUT THIS LINE OR THE LINE BEFORE HAS FLAWED LOGIC THAT WILL RESULT IN NEGATIVE TIME OUTPUTS
         threadTime[minThreadIndex] += currentJobTime;
     }
     return jobSchedule;
@@ -45,7 +45,7 @@ int main()
 {
     // Variables
     int n, m; // n number of threads, m number of jobs
-    vector<int> times; // Using m as the index to match the job to the vector list of times
+    vector<long> times; // Using m as the index to match the job to the vector list of times
     string inputFileName;
 
     // Prompt for input file name
