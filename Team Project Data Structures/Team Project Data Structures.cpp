@@ -43,8 +43,9 @@ vector<pair<int, long>> parallelizeJobs(int n, int m, const vector<long>& proces
         auto minThread = threadTime.top();
         threadTime.pop();
 
-        jobSchedule.push_back({ minThread.second, max(minThread.first, 0L) + currentJobTime }); // Updated this line
-        minThread.first = max(minThread.first, 0L) + currentJobTime; // Updated this line
+        // -------------------- Somewhere around here the logic is causing an overflow error I believe, because it keeps printing some random negative numbers
+        jobSchedule.push_back({ minThread.second, max(minThread.first, 0L) + currentJobTime });
+        minThread.first = max(minThread.first, 0L) + currentJobTime;
         threadTime.push(minThread);
     }
     return jobSchedule;
