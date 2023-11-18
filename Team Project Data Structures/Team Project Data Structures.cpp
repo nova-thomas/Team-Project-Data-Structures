@@ -3,8 +3,8 @@
 * Project:
 * Authors:
 * Nova Thomas
-* ________
-* ________
+* Kelsea Canaday
+* Anzhelika Voytovych
 * 
 * Date Due: 11/20/2023
 * 
