@@ -35,7 +35,6 @@ vector<pair<int, long>> parallelizeJobs(int n, int m, const vector<long>& proces
 
     for (int i = 0; i < n; ++i) {
         threadTime.push({ 0, i }); // initialize starting times for each thread
-        cout << 0 << " " << 0 << endl;
     }
 
     for (int i = 0; i < m; ++i) {
