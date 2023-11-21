@@ -26,35 +26,51 @@
 
 using namespace std;
 
-// Function called in the creation of a thread object to handle the job given by the input in main
-vector<pair<int, long>> parallelizeJobs(int n, int m, const vector<long>& processingTime) {
-    // Priority queue to store thread times
-    priority_queue<pair<long, int>, vector<pair<long, int>>, greater<pair<long, int>>> threadTime;
+struct Thread {
+    int index;
+    unsigned long currentTime;
 
-    vector<pair<int, long>> jobSchedule;
+    // Define a comparison function for the priority queue
+    bool operator>(const Thread& other) const {
+        return currentTime > other.currentTime;
+    }
+};
+
+// Function called in the creation of a thread object to handle the job given by the input in main
+vector<pair<int, unsigned long>> parallelizeJobs(int n, int m, const vector<unsigned long>& processingTime) {
+    // Priority queue to keep track of threads with their current times
+    priority_queue<Thread, vector<Thread>, greater<Thread>> threadQueue;
+
+    vector<pair<int, unsigned long>> jobSchedule;
 
     for (int i = 0; i < n; ++i) {
-        threadTime.push({ 0, i }); // initialize starting times for each thread
+        // Initialize the priority queue with threads and their initial times
+        threadQueue.push({ i, 0 });
     }
 
     for (int i = 0; i < m; ++i) {
-        long currentJobTime = processingTime[i];
-        auto minThread = threadTime.top();
-        threadTime.pop();
+        // Pop the thread with the minimum current time
+        Thread minThread = threadQueue.top();
+        threadQueue.pop();
 
-        jobSchedule.push_back({ minThread.second, minThread.first });
-        minThread.first += currentJobTime;
-        threadTime.push(minThread);
+        // Assign the job to the thread with the minimum current time
+        jobSchedule.push_back({ minThread.index, minThread.currentTime });
+
+        // Update the current time for the selected thread
+        minThread.currentTime += processingTime[i];
+
+        // Push the thread back into the priority queue with the updated time
+        threadQueue.push(minThread);
     }
 
     return jobSchedule;
 }
 
-int main() 
+int main()
 {
     // Variables
     int n, m; // n number of threads, m number of jobs
-    vector<long> times; // Using m as the index to match the job to the vector list of times
+    vector<unsigned long> times; // Using m as the index to match the job to the vector list of times
     string inputFileName;
 
     // Prompt for input file name
